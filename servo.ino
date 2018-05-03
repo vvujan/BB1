@@ -64,8 +64,7 @@ void loop() {
       analogWrite(rightBackward, rightBackwardValue);
       if (headStatus == 0)
         Servo1.write(90); 
-      else if(headStatus == 1)  {  //left
-      
+      else if(headStatus == 1)  {  //left 
         Servo1.write(0);
         }
       else if(headStatus == 2) { //right
@@ -75,23 +74,6 @@ void loop() {
    
     }
         
-}
-
-void left(int angle){
-  for (int pos = 0; pos <= angle; pos += 1) { // goes from 0 degrees to 180 degrees
-    // in steps of 1 degree
-    Servo1.write(pos); 
-    delay(1);                       // waits 15ms for the servo to reach the position
-  }
-  Servo1.write(0);
-}
-void right(int angle){
-  for (int pos = angle; pos >= 0; pos -= 1) { // goes from 180 degrees to 0 degrees
-    Servo1.write(pos);  
-    delay(1);                       // waits 15ms for the servo to reach the position
-  }
-  Servo1.write(0);
-  
 }
 
 String getValue(String data, char separator, int index)
