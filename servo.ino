@@ -6,8 +6,8 @@ Servo Servo1;
 //set motors pin
 int leftForward=5;
 int leftBackward=6;
-int rightForward=9;
-int rightBackward=10;
+int rightForward=A3;
+int rightBackward=A2;
 
 int leftForwardValue=0;
 int leftBackwardValue=0;
@@ -20,18 +20,16 @@ String inputString = "";
 void setAllPinsOnLow() {
     digitalWrite(leftForward, LOW);
     digitalWrite(leftBackward, LOW);
-    digitalWrite(rightForward, LOW);
-    digitalWrite(rightBackward, LOW);
+    analogWrite(rightForward, 0);
+    analogWrite(rightBackward, 0);
     //servo
-    Servo1.write(90);
-
+    useServo(90,500);
     // reserve 200 bytes for the inputString:
     //inputString.reserve(200);
 }
 
 void setup() {
     // We need to attach the servo to the used pin number
-    Servo1.attach(servoPin);
     pinMode(leftForward, OUTPUT);
     pinMode(leftBackward, OUTPUT);
     pinMode(rightForward, OUTPUT);
@@ -63,18 +61,27 @@ void loop() {
       analogWrite(rightForward, rightForwardValue);
       analogWrite(rightBackward, rightBackwardValue);
       if (headStatus == 0)
-        Servo1.write(90); 
-      else if(headStatus == 1)  {  //left 
-        Servo1.write(0);
+      {
+        useServo(90,500);
+      }
+      else if(headStatus == 1)  //left
+      { 
+        useServo(0,500);
         }
-      else if(headStatus == 2) { //right
-        
-        Servo1.write(180);
+      else if(headStatus == 2) //right
+      { 
+        useServo(180,500);
         }
    
     }
-        
+} 
+void useServo(int angle, int delays){
+  Servo1.attach(servoPin);
+  Servo1.write(angle);
+  delay(delays);
+  Servo1.detach() ;
 }
+
 
 String getValue(String data, char separator, int index)
 {
